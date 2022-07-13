@@ -208,8 +208,7 @@ GROUP BY software_houses.id, software_houses.name
 ORDER BY COUNT(award_videogame.id) DESC;
 
 -- 13- Selezionare le categorie dei videogame i quali hanno una media recensioni inferiore a 1.5 (10)
-
-SELECT DISTINCT c.id AS category_id, c.name AS category_name
+SELECT c.id AS category_id, c.name AS category_name, AVG(CAST(r.rating AS DECIMAL)) AS rating
 FROM videogames v
 INNER JOIN reviews r
 ON v.id = r.videogame_id
@@ -218,6 +217,5 @@ ON v.id = cv.videogame_id
 INNER JOIN categories c
 ON cv.category_id = c.id
 GROUP BY v.id, c.id, c.name
-HAVING AVG(r.rating) < 1.5
-
+HAVING AVG(CAST(r.rating AS DECIMAL)) < 1.5
 --
