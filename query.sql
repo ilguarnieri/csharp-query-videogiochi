@@ -78,19 +78,43 @@ WHERE software_house_id = 1 AND DATEPART(year, release_date) = 2018
 -- 
 -- ------ Query con group by
 -- 
--- ```
 -- 1- Contare quante software house ci sono per ogni paese (3)
--- 
+
+SELECT country, COUNT(*) AS tot_soft
+FROM software_houses
+GROUP BY country
+
 -- 2- Contare quante recensioni ha ricevuto ogni videogioco (del videogioco vogliamo solo l'ID) (500)
--- 
+
+SELECT videogame_id, COUNT(*) AS tot_review
+FROM reviews
+GROUP BY videogame_id
+
 -- 3- Contare quanti videogiochi hanno ciascuna classificazione PEGI (della classificazione PEGI vogliamo solo l'ID) (13)
--- 
+
+SELECT pegi_label_id, COUNT(*) AS videogiochi
+FROM pegi_label_videogame
+GROUP BY pegi_label_id
+
 -- 4- Mostrare il numero di videogiochi rilasciati ogni anno (11)
--- 
+
+SELECT DATEPART(year, release_date) AS year, COUNT(*) AS num_videogiochi
+FROM videogames
+GROUP BY DATEPART(year, release_date)
+
 -- 5- Contare quanti videogiochi sono disponbiili per ciascun device (del device vogliamo solo l'ID) (7)
--- 
+
+SELECT device_id, COUNT(*) AS videogiochi
+FROM device_videogame
+GROUP BY device_id
+
 -- 6- Ordinare i videogame in base alla media delle recensioni (del videogioco vogliamo solo l'ID) (500)
--- ```
+
+SELECT videogame_id, AVG(rating) AS media
+FROM reviews
+GROUP BY videogame_id
+ORDER BY media DESC
+
 -- 
 -- ------ Query con join
 -- 
